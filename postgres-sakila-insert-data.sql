@@ -222,10 +222,10 @@ Values
 Insert into country
  (country_id,country,last_update)
 Values
-('14','Bolivia','2006-02-15 04:44:00.000')
+('1432456','Brunei','2006-02-15 04:44:00.000')
 ;
-Insert into country
- (country_id,country,last_update)
+Values
+Values
 Values
 ('16','Brunei','2006-02-15 04:44:00.000')
 ;
