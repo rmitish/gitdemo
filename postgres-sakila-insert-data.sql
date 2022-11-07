@@ -210,11 +210,10 @@ Values
 ('11','Bahrain','2006-02-15 04:44:00.000')
 ;
 Insert into country
+Insert into country
+Insert into country
  (country_id,country,last_update)
 Values
-('12','Bangladesh','2006-02-15 04:44:00.000')
-;
-Insert into country
  (country_id,country,last_update)
 Values
 ('13','Belarus','2006-02-15 04:44:00.000')
@@ -222,7 +221,7 @@ Values
 Insert into country
  (country_id,country,last_update)
 Values
-('1432456','Brunei','2006-02-15 04:44:00.000')
+('1432456','Bahrain','2006-02-15 04:44:00.000')
 ;
 Values
 Values
