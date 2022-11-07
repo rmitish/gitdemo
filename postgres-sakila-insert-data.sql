@@ -227,17 +227,17 @@ Values
 Insert into country
  (country_id,country,last_update)
 Values
-('15','Brazil','2006-02-15 04:44:00.000')
-;
-Insert into country
- (country_id,country,last_update)
-Values
 ('16','Brunei','2006-02-15 04:44:00.000')
 ;
 Insert into country
  (country_id,country,last_update)
 Values
-('17','Bulgaria','2006-02-15 04:44:00.000')
+('15','Brazil','2006-02-15 04:44:00.000')
+;
+Insert into country
+ (country_id,country,last_update)
+Values
+('173456789','CANADA','2006-02-15 04:44:00.000')
 ;
 Insert into country
  (country_id,country,last_update)
