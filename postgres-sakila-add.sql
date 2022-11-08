@@ -141,34 +141,38 @@ ALTER TABLE public.category OWNER TO postgres;
 -- Name: film_film_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
-CREATE SEQUENCE movie_movie_id_seq
+CREATE SEQUENCE film_film_id_seq
     INCREMENT BY 1
     NO MAXVALUE
     NO MINVALUE
     CACHE 1;
 
 
-ALTER TABLE public.movie_movie_id_seq OWNER TO postgres;
--- Name: film; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
-CREATE TABLE movie_conflicting (
-    movie_id integer DEFAULT nextval('movie_movie_id_seq'::regclass) NOT NULL,
-    movie_title character varying(255) NOT NULL,
-    movie_description text,
-    movie_release_year year,
-    movie_language_id smallint NOT NULL,
-    movie_original_language_id smallint,
-    movie_rental_duration smallint DEFAULT 3 NOT NULL,
-    movie_rental_rate numeric(4,2) DEFAULT 4.99 NOT NULL,
-    movie_length smallint,
-    movie_replacement_cost numeric(5,2) DEFAULT 19.99 NOT NULL,
-    movie_rating mpaa_rating DEFAULT 'G'::mpaa_rating,
-    movie_last_update timestamp without time zone DEFAULT now() NOT NULL,
-    movie_special_features text[],
-    movie_fulltext tsvector NOT NULL
+ALTER TABLE public.film_film_id_seq OWNER TO postgres;
+
+--
+-- Name: film; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE film (
+    film_id integer DEFAULT nextval('film_film_id_seq'::regclass) NOT NULL,
+    title character varying(255) NOT NULL,
+    description text,
+    release_year year,
+    language_id smallint NOT NULL,
+    original_language_id smallint,
+    rental_duration smallint DEFAULT 3 NOT NULL,
+    rental_rate numeric(4,2) DEFAULT 4.99 NOT NULL,
+    length smallint,
+    replacement_cost numeric(5,2) DEFAULT 19.99 NOT NULL,
+    rating mpaa_rating DEFAULT 'G'::mpaa_rating,
+    last_update timestamp without time zone DEFAULT now() NOT NULL,
+    special_features text[],
+    fulltext tsvector NOT NULL
 );
 
 
-ALTER TABLE public.movie OWNER TO postgres;
+ALTER TABLE public.film OWNER TO postgres;
 
 --
 -- Name: film_actor; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 

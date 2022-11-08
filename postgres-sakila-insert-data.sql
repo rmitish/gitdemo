@@ -135,7 +135,7 @@ Values
 Insert into language
  (language_id,name,last_update)
 Values
-('5','French','2006-02-15 05:02:19.000')
+('5','French_conflicting_B','2006-02-15 05:02:19.000')
 ;
 Insert into language
  (language_id,name,last_update)
@@ -221,12 +221,13 @@ Values
 Insert into country
  (country_id,country,last_update)
 Values
-('fwefsf','Bahrain','2006-02-15 04:44:00.000')
+('1432456','Bahrain','2006-02-15 04:44:00.000')
 ;
+Values
+Values
+Values
 ('16','Brunei','2006-02-15 04:44:00.000')
 ;
-Insert into country
-Insert into country
 Insert into country
  (country_id,country,last_update)Insert into country
  (country_id,country,last_update)

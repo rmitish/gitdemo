@@ -6,6 +6,14 @@ create table view_with_rules_t1
   ctr         smallint    not null /*primary key*/,
   ctr_name    varchar(26) not null /*unique*/,
   ctr_capital int
+);(
+  ctr         smallint    not null /*primary key*/,
+  ctr_name    varchar(26) not null /*unique*/,
+  ctr_capital int
+);(
+  ctr         smallint    not null /*primary key*/,
+  ctr_name    varchar(26) not null /*unique*/,
+  ctr_capital int
 );
 
 create table view_with_rules_t2
