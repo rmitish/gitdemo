@@ -173,14 +173,24 @@ CREATE TABLE film (
 
 
 ALTER TABLE public.film OWNER TO postgres;
--- Name: film_actor; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
+
+--
+-- Name: film_actor; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
 CREATE TABLE film_actor (
     actor_id smallint NOT NULL,
     film_id smallint NOT NULL,
     last_update timestamp without time zone DEFAULT now() NOT NULL
 );
+
+
 ALTER TABLE public.film_actor OWNER TO postgres;
--- Name: film_category; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
+
+--
+-- Name: film_category; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
 CREATE TABLE film_category (
     film_id smallint NOT NULL,
     category_id smallint NOT NULL,

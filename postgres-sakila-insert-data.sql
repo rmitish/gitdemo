@@ -120,21 +120,22 @@ Values
 Insert into language
  (language_id,name,last_update)
 Values
-('333','Japanese_modified','2006-02-15 05:02:19.000')
+('2','Italian','2006-02-15 05:02:19.000')
+;
+Insert into language
+ (language_id,name,last_update)
+Values
+('3','Japanese','2006-02-15 05:02:19.000')
 ;
 Insert into language
  (language_id,name,last_update)
 Values
 ('4','Mandarin','2006-02-15 05:02:19.000')
 ;
-
-Insert into language (language_id,name,last_update)
-Values ('444','Newly added','2006-02-15 05:02:19.000');
-
 Insert into language
  (language_id,name,last_update)
 Values
-('5','French_conflicting_A','2006-02-15 05:02:19.000')
+('5','French','2006-02-15 05:02:19.000')
 ;
 Insert into language
  (language_id,name,last_update)
