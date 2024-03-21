@@ -1,5 +1,6 @@
 --
 -- PostgreSQL database dump
+-- PostgreSQL database dump
 --
 
 SET client_encoding = 'UTF8';
