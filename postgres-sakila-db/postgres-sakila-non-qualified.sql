@@ -1,3 +1,5 @@
+-- noinspection SqlResolveForFile
+
 set client_encoding = 'utf8';
 set standard_conforming_strings = off;
 set check_function_bodies = false;

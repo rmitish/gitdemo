@@ -1,6 +1,5 @@
 --
 -- PostgreSQL database dump
--- PostgreSQL database dump
 --
 
 SET client_encoding = 'UTF8';
@@ -142,34 +141,38 @@ ALTER TABLE public.category OWNER TO postgres;
 -- Name: film_film_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
-CREATE SEQUENCE movie_movie_id_seq
+CREATE SEQUENCE film_film_id_seq
     INCREMENT BY 1
     NO MAXVALUE
     NO MINVALUE
     CACHE 1;
 
 
-ALTER TABLE public.movie_movie_id_seq OWNER TO postgres;
--- Name: film; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
-CREATE TABLE movie_conflicting (
-    movie_id integer DEFAULT nextval('movie_movie_id_seq'::regclass) NOT NULL,
-    movie_title character varying(255) NOT NULL,
-    movie_description text,
-    movie_release_year year,
-    movie_language_id smallint NOT NULL,
-    movie_original_language_id smallint,
-    movie_rental_duration smallint DEFAULT 3 NOT NULL,
-    movie_rental_rate numeric(4,2) DEFAULT 4.99 NOT NULL,
-    movie_length smallint,
-    movie_replacement_cost numeric(5,2) DEFAULT 19.99 NOT NULL,
-    movie_rating mpaa_rating DEFAULT 'G'::mpaa_rating,
-    movie_last_update timestamp without time zone DEFAULT now() NOT NULL,
-    movie_special_features text[],
-    movie_fulltext tsvector NOT NULL
+ALTER TABLE public.film_film_id_seq OWNER TO postgres;
+
+--
+-- Name: film; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE film (
+    film_id integer DEFAULT nextval('film_film_id_seq'::regclass) NOT NULL,
+    title character varying(255) NOT NULL,
+    description text,
+    release_year year,
+    language_id smallint NOT NULL,
+    original_language_id smallint,
+    rental_duration smallint DEFAULT 3 NOT NULL,
+    rental_rate numeric(4,2) DEFAULT 4.99 NOT NULL,
+    length smallint,
+    replacement_cost numeric(5,2) DEFAULT 19.99 NOT NULL,
+    rating mpaa_rating DEFAULT 'G'::mpaa_rating,
+    last_update timestamp without time zone DEFAULT now() NOT NULL,
+    special_features text[],
+    fulltext tsvector NOT NULL
 );
 
 
-ALTER TABLE public.movie OWNER TO postgres;
+ALTER TABLE public.film OWNER TO postgres;
 
 --
 -- Name: film_actor; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
@@ -202,7 +205,7 @@ ALTER TABLE public.film_category OWNER TO postgres;
 --
 
 CREATE VIEW actor_info AS
-    SELECT a.actor_id, a.first_name1, a.last_name, group_concat(DISTINCT (((c.name)::text || ': '::text) || (SELECT group_concat((f.title)::text) AS group_concat FROM ((film f JOIN film_category fc ON ((f.film_id = fc.film_id))) JOIN film_actor fa ON ((f.film_id = fa.film_id))) WHERE ((fc.category_id = c.category_id) AND (fa.actor_id = a.actor_id)) GROUP BY fa.actor_id))) AS film_info FROM (((actor a LEFT JOIN film_actor fa ON ((a.actor_id = fa.actor_id))) LEFT JOIN film_category fc ON ((fa.film_id = fc.film_id))) LEFT JOIN category c ON ((fc.category_id = c.category_id))) GROUP BY a.actor_id, a.first_name1, a.last_name;
+    SELECT a.actor_id, a.first_name, a.last_name, group_concat(DISTINCT (((c.name)::text || ': '::text) || (SELECT group_concat((f.title)::text) AS group_concat FROM ((film f JOIN film_category fc ON ((f.film_id = fc.film_id))) JOIN film_actor fa ON ((f.film_id = fa.film_id))) WHERE ((fc.category_id = c.category_id) AND (fa.actor_id = a.actor_id)) GROUP BY fa.actor_id, f.title))) AS film_info FROM (((actor a LEFT JOIN film_actor fa ON ((a.actor_id = fa.actor_id))) LEFT JOIN film_category fc ON ((fa.film_id = fc.film_id))) LEFT JOIN category c ON ((fc.category_id = c.category_id))) GROUP BY a.actor_id, a.first_name, a.last_name, c.name;
 
 
 ALTER TABLE public.actor_info OWNER TO postgres;
@@ -339,7 +342,7 @@ ALTER TABLE public.customer_list OWNER TO postgres;
 --
 
 CREATE VIEW film_list AS
-    SELECT film.film_id AS fid, film.title, film.description, category.name AS category, film.rental_rate AS price, film.length, film.rating, group_concat((((actor.first_name1)::text || ' '::text) || (actor.last_name)::text)) AS actors FROM ((((category LEFT JOIN film_category ON ((category.category_id = film_category.category_id))) LEFT JOIN film ON ((film_category.film_id = film.film_id))) JOIN film_actor ON ((film.film_id = film_actor.film_id))) JOIN actor ON ((film_actor.actor_id = actor.actor_id))) GROUP BY film.film_id, film.title, film.description, category.name, film.rental_rate, film.length, film.rating;
+    SELECT film.film_id AS fid, film.title, film.description, category.name AS category, film.rental_rate AS price, film.length, film.rating, group_concat((((actor.first_name)::text || ' '::text) || (actor.last_name)::text)) AS actors FROM ((((category LEFT JOIN film_category ON ((category.category_id = film_category.category_id))) LEFT JOIN film ON ((film_category.film_id = film.film_id))) JOIN film_actor ON ((film.film_id = film_actor.film_id))) JOIN actor ON ((film_actor.actor_id = actor.actor_id))) GROUP BY film.film_id, film.title, film.description, category.name, film.rental_rate, film.length, film.rating, actor.first_name, actor.last_name;
 
 
 ALTER TABLE public.film_list OWNER TO postgres;
@@ -402,7 +405,7 @@ ALTER TABLE public.language OWNER TO postgres;
 --
 
 CREATE VIEW nicer_but_slower_film_list AS
-    SELECT film.film_id AS fid, film.title, film.description, category.name AS category, film.rental_rate AS price, film.length, film.rating, group_concat((((upper("substring"((actor.first_name1)::text, 1, 1)) || lower("substring"((actor.first_name1)::text, 2))) || upper("substring"((actor.last_name)::text, 1, 1))) || lower("substring"((actor.last_name)::text, 2)))) AS actors FROM ((((category LEFT JOIN film_category ON ((category.category_id = film_category.category_id))) LEFT JOIN film ON ((film_category.film_id = film.film_id))) JOIN film_actor ON ((film.film_id = film_actor.film_id))) JOIN actor ON ((film_actor.actor_id = actor.actor_id))) GROUP BY film.film_id, film.title, film.description, category.name, film.rental_rate, film.length, film.rating;
+    SELECT film.film_id AS fid, film.title, film.description, category.name AS category, film.rental_rate AS price, film.length, film.rating, group_concat((((upper("substring"((actor.first_name)::text, 1, 1)) || lower("substring"((actor.first_name)::text, 2))) || upper("substring"((actor.last_name)::text, 1, 1))) || lower("substring"((actor.last_name)::text, 2)))) AS actors FROM ((((category LEFT JOIN film_category ON ((category.category_id = film_category.category_id))) LEFT JOIN film ON ((film_category.film_id = film.film_id))) JOIN film_actor ON ((film.film_id = film_actor.film_id))) JOIN actor ON ((film_actor.actor_id = actor.actor_id))) GROUP BY film.film_id, film.title, film.description, category.name, film.rental_rate, film.length, film.rating, actor.first_name, actor.last_name;
 
 
 ALTER TABLE public.nicer_but_slower_film_list OWNER TO postgres;
@@ -681,13 +684,6 @@ BEGIN
       AND rental.rental_date <= p_effective_date
       AND rental.customer_id = p_customer_id;
 
-    SELECT COALESCE(SUM(IF((rental.return_date - rental.rental_date) > (film.rental_duration * '1 day'::interval),
-        ((rental.return_date - rental.rental_date) - (film.rental_duration * '1 day'::interval)),0)),0) INTO v_overfees
-    FROM rental, inventory, film
-    WHERE film.film_id = inventory.film_id
-      AND inventory.inventory_id = rental.inventory_id
-      AND rental.rental_date <= p_effective_date
-      AND rental.customer_id = p_customer_id;
 
     SELECT COALESCE(SUM(payment.amount),0) INTO v_payments
     FROM payment

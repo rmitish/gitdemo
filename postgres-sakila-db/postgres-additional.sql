@@ -6,19 +6,11 @@ create table view_with_rules_t1
   ctr         smallint    not null /*primary key*/,
   ctr_name    varchar(26) not null /*unique*/,
   ctr_capital int
-);(
-  ctr         smallint    not null /*primary key*/,
-  ctr_name    varchar(26) not null /*unique*/,
-  ctr_capital int
-);(
-  ctr         smallint    not null /*primary key*/,
-  ctr_name    varchar(26) not null /*unique*/,
-  ctr_capital int
 );
 
 create table view_with_rules_t2
 (
-  ctr            smallint    not null /*references country*/,
+  ctr            smallint    not null /*country*/,
   cty            integer     not null,
   cty_name       varchar(26) not null /*unique*/,
   cty_is_capital boolean
@@ -33,6 +25,34 @@ create or replace view view_with_rules
     from view_with_rules_t1
       natural join view_with_rules_t2
     where cty_is_capital;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 create rule rule_for_view as
 on insert to view_with_rules
@@ -57,11 +77,17 @@ create user mapping for public
 options (host 'localhost', port '54325');
 
 -- types
+
+-- TODO Create types
+--  - punkt
+--  - kleinkreis
+
 create type my_complex as
 (
   re double precision,
   im double precision
 );
+-- FIXME Update person_name type
 
 create type person_name as
 (
