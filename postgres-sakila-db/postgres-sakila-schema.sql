@@ -164,7 +164,7 @@ CREATE TABLE film (
     language_id smallint NOT NULL,
     original_language_id smallint,
     rental_duration smallint DEFAULT 3 NOT NULL,
-    rental_rate numeric(4,2) DEFAULT 4.99 NOT NULL,
+    conflict_B_rental_rate numeric(4,2) DEFAULT 4.99 NOT NULL,
     length smallint,
     replacement_cost numeric(5,2) DEFAULT 19.99 NOT NULL,
     rating mpaa_rating DEFAULT 'G'::mpaa_rating,
